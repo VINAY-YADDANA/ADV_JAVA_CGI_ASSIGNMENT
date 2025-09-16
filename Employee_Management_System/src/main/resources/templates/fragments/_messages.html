@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="messages">
+    <div th:if="${#fields.hasErrors('*')}" class="error">
+        Please correct the highlighted errors.
+    </div>
+    <div th:if="${flashMessage}" th:text="${flashMessage}"></div>
+</div>
+</body>
+</html>

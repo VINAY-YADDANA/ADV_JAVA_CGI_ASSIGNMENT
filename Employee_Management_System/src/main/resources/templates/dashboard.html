@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body})}">
+<body>
+<div th:fragment="content">
+    <h1>Dashboard</h1>
+    <div class="tile">
+        <div>Total Employees</div>
+        <div class="value" th:text="${totalEmployees}">0</div>
+    </div>
+    <div class="tile">
+        <div>Total Leave Requests</div>
+        <div class="value" th:text="${totalLeaves}">0</div>
+    </div>
+    <div class="tile">
+        <div>Pending Approvals</div>
+        <div class="value" th:text="${pendingApprovals}">0</div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body})}">
+<body>
+<div th:fragment="content">
+    <h1>Leave Requests</h1>
+    <p>
+        <a class="button primary" th:href="@{/leaves/new}">+ Submit Leave Request</a>
+    </p>
+
+    <form method="get" th:action="@{/leaves}" style="margin-bottom: 12px;">
+        <label for="employeeId">Employee</label>
+        <select id="employeeId" name="employeeId">
+<!--            <option th:value="" th:selected="${selectedEmployeeId == null}">&#45;&#45; All &#45;&#45;</option>-->
+            <option value="" th:selected="${selectedEmployeeId == null}">-- All --</option>
+            <option th:each="e : ${employees}" th:value="${e.id}" th:text="${e.name}"
+                    th:selected="${selectedEmployeeId} == ${e.id}"></option>
+        </select>
+
+        <label for="status">Status</label>
+        <select id="status" name="status">
+<!--            <option th:value="" th:selected="${selectedStatus == null}">&#45;&#45; All &#45;&#45;</option>-->
+            <option value="" th:selected="${selectedStatus == null}">-- All --</option>
+            <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"
+                    th:selected="${selectedStatus} == ${s}"></option>
+        </select>
+
+        <button class="button" type="submit">Filter</button>
+        <a class="button" th:href="@{/leaves}">Reset</a>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Employee</th>
+            <th>Type</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lr : ${leaves}">
+            <td th:text="${lr.id}">1</td>
+            <td th:text="${lr.employee.name}">Alice</td>
+            <td th:text="${lr.leaveType}">SICK</td>
+            <td th:text="${lr.startDate}">2025-09-10</td>
+            <td th:text="${lr.endDate}">2025-09-12</td>
+            <td th:text="${lr.status}">PENDING</td>
+            <td class="actions">
+                <form th:if="${lr.status.name() == 'PENDING'}" th:action="@{|/leaves/${lr.id}/approve|}" method="post">
+                    <button class="button success" type="submit">Approve</button>
+                </form>
+                <form th:if="${lr.status.name() == 'PENDING'}" th:action="@{|/leaves/${lr.id}/reject|}" method="post">
+                    <button class="button danger" type="submit">Reject</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

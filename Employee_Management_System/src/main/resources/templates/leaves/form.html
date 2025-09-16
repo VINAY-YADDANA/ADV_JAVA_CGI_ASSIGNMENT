@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body})}">
+<body>
+<div th:fragment="content">
+    <h1>Submit Leave Request</h1>
+    <form th:action="@{/leaves}" th:object="${leaveRequest}" method="post">
+        <div th:insert="~{fragments/_messages :: messages}"></div>
+        <div class="form-field">
+            <label for="employee">Employee</label>
+            <select id="employee" th:field="*{employee.id}">
+                <option value="" disabled selected>-- Select Employee --</option>
+                <th:block th:each="e : ${employees}">
+                    <option th:value="${e.id}" th:text="${e.name}"></option>
+                </th:block>
+            </select>
+            <div class="error" th:if="${#fields.hasErrors('employee.id')}" th:errors="*{employee.id}">Employee error</div>
+        </div>
+        <div class="form-field">
+            <label for="leaveType">Leave Type</label>
+            <select id="leaveType" th:field="*{leaveType}">
+                <th:block th:each="t : ${leaveTypes}">
+                    <option th:value="${t}" th:text="${t}"></option>
+                </th:block>
+
+            </select>
+            <div class="error" th:if="${#fields.hasErrors('leaveType')}" th:errors="*{leaveType}">Type error</div>
+        </div>
+        <div class="form-field">
+            <label for="startDate">Start Date</label>
+            <input id="startDate" type="date" th:field="*{startDate}" />
+            <div class="error" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Start error</div>
+        </div>
+        <div class="form-field">
+            <label for="endDate">End Date</label>
+            <input id="endDate" type="date" th:field="*{endDate}" />
+            <div class="error" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">End error</div>
+        </div>
+        <div class="error" th:if="${#fields.hasGlobalErrors()}">
+            <div th:each="ge : ${#fields.globalErrors()}" th:text="${ge}"></div>
+        </div>
+        <div>
+            <button class="button success" type="submit">Submit</button>
+            <a class="button" th:href="@{/leaves}">Cancel</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

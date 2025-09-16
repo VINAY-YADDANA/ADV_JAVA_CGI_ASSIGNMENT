@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle} ?: 'Leave Management'">Leave Management</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <nav>
+        <a th:href="@{/}">Dashboard</a>
+        <a th:href="@{/employees}">Employees</a>
+        <a th:href="@{/leaves}">Leave Requests</a>
+        <a th:href="@{/h2-console}" target="_blank" rel="noopener">H2 Console</a>
+    </nav>
+</header>
+<div class="container">
+    <div th:replace="${content}">Content goes here</div>
+</div>
+<footer class="container">
+    <p>Employee Leave Management &middot; Spring Boot + Thymeleaf + H2</p>
+</footer>
+</body>
+</html>
