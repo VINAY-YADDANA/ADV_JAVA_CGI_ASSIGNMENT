@@ -1,6 +1,0 @@
-2025-09-16 23:11:42.979576+05:30 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "students" not found (this database is empty); SQL statement:
-INSERT INTO students(name, academic_year) VALUES(?, ?) [42104-224]
-2025-09-16 23:11:47.268026+05:30 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "registrations" not found (this database is empty); SQL statement:
-SELECT s.student_id, s.name, s.academic_year, c.course_id, c.title, c.credits FROM registrations r JOIN students s ON r.student_id = s.student_id JOIN courses c ON r.course_id = c.course_id [42104-224]
